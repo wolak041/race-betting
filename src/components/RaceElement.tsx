@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { IconButton, Paper, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import NavigateNext from '@mui/icons-material/NavigateNext';
+import RaceStatus from './RaceStatus';
 import { Race } from '../interfaces/race';
 import { routes } from '../config/routes';
 
@@ -21,23 +22,13 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   },
 }));
 
-const Active = styled('span')(({ theme }) => ({
-  color: theme.palette.success.main,
-}));
-
-const Inactive = styled('span')(({ theme }) => ({
-  color: theme.palette.error.main,
-}));
-
 function RaceElement({ id, name, active, participants = [] }: Race): JSX.Element {
   return (
     <StyledLink to={`${routes.RACE}/${id}`}>
       <StyledPaper>
         <div>
           <Typography variant="h6">{name}</Typography>
-          <Typography color="text.secondary">
-            Status: {active ? <Active>active</Active> : <Inactive>inactive</Inactive>}
-          </Typography>
+          <RaceStatus active={active} />
           <Typography color="text.secondary" variant="body2">
             Number of participants: {participants.length}
           </Typography>
