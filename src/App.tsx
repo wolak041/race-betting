@@ -12,6 +12,7 @@ import { Bet } from './interfaces/bet';
 import { routes } from './config/routes';
 import { FilterStates, filterStates } from './config/filterStates';
 import { getBetsFromLocalStorage, setBetsToLocalStorage } from './utils/localStorage';
+import ScrollToTop from './components/ScrollToTop';
 
 function App(): JSX.Element {
   const theme = createTheme({
@@ -92,6 +93,7 @@ function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <Router>
+        <ScrollToTop />
         <Main>
           <Switch>
             <Route path={`${routes.RACE}/:raceId`}>

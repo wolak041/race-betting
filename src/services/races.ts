@@ -8,10 +8,3 @@ export async function getRaces(): Promise<Array<Race>> {
 
   return races;
 }
-
-export async function getRace(raceId: number): Promise<Race> {
-  const response = await fetch(`${RACE_API}/${raceId}`);
-  const race = await response.json();
-
-  return race;
-}

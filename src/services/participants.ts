@@ -8,10 +8,3 @@ export async function getParticipants(): Promise<Array<Participant>> {
 
   return participants;
 }
-
-export async function getParticipant(raceId: number): Promise<Participant> {
-  const response = await fetch(`${PARTICIPANT_API}/${raceId}`);
-  const participant = await response.json();
-
-  return participant;
-}
