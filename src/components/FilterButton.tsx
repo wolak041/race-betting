@@ -1,13 +1,20 @@
 import { useState } from 'react';
 import { Button, Menu, MenuItem } from '@mui/material';
 import { ButtonProps } from '@mui/material/Button';
+import { styled } from '@mui/system';
 import { FilterStates, filterStates } from '../config/filterStates';
 
-interface FilterButtonProps extends ButtonProps {
+interface FilterButtonProps {
   button: ButtonProps;
   filter: FilterStates;
   updateFilter: (states: FilterStates) => void;
 }
+
+const StyledMenu = styled(Menu)({
+  '& ul': {
+    minWidth: '180px',
+  },
+});
 
 function FilterButton({ button, filter, updateFilter }: FilterButtonProps): JSX.Element {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -18,10 +25,10 @@ function FilterButton({ button, filter, updateFilter }: FilterButtonProps): JSX.
 
   return (
     <div>
-      <Button onClick={(e) => setAnchorEl(e.currentTarget)} {...button}>
+      <Button onClick={(e) => setAnchorEl(e.currentTarget)} sx={{ minWidth: '180px' }} {...button}>
         Filter: {filter}
       </Button>
-      <Menu
+      <StyledMenu
         id="filter-menu"
         anchorEl={anchorEl}
         open={!!anchorEl}
@@ -32,7 +39,7 @@ function FilterButton({ button, filter, updateFilter }: FilterButtonProps): JSX.
             {state}
           </MenuItem>
         ))}
-      </Menu>
+      </StyledMenu>
     </div>
   );
 }

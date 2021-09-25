@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Button, TextField } from '@mui/material';
+import { Alert, Button, TextField } from '@mui/material';
 import { styled } from '@mui/system';
 import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import Send from '@mui/icons-material/Send';
@@ -28,9 +28,9 @@ const getBet = (bets: Array<Bet>, raceId: number) => bets.find((bet) => bet.race
 const isPlacesValid = (places: Places) =>
   [...new Set(Object.values(places).filter(Number))].length === 3;
 
-const isBetAmountValid = (amount: string) => /^[0-9]*$/.test(amount.trim());
+const isBetAmountValid = (amount: string) => /^[1-9][0-9]*$/.test(amount.trim());
 
-const BackLink = styled(Link)(({ theme }) => ({
+const StyledLink = styled(Link)(({ theme }) => ({
   color: theme.palette.text.primary,
   textDecoration: 'none',
 }));
@@ -76,11 +76,11 @@ function SingleRace({ races, allParticipants, bets, updateBets }: RaceProps): JS
   return (
     <div>
       <div>
-        <BackLink to={routes.MAIN}>
+        <StyledLink to={routes.MAIN}>
           <Button variant="outlined" startIcon={<NavigateBefore />}>
             Go back
           </Button>
-        </BackLink>
+        </StyledLink>
         <p>{race?.name ?? 'Race name'}</p>
         <p>Status: {race?.active ? 'active' : 'inactive'}</p>
       </div>
@@ -105,6 +105,11 @@ function SingleRace({ races, allParticipants, bets, updateBets }: RaceProps): JS
         >
           Bet
         </Button>
+        {!isPlacesValid(places) ? (
+          <Alert severity="info">Choose winner, second and third place</Alert>
+        ) : (
+          !isBetAmountValid(betAmount) && <Alert severity="info">Set bet amount</Alert>
+        )}
       </div>
     </div>
   );

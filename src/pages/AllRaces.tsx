@@ -1,3 +1,5 @@
+import { Typography } from '@mui/material';
+import { styled } from '@mui/system';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import RaceElement from '../components/RaceElement';
 import { Race } from '../interfaces/race';
@@ -21,21 +23,27 @@ const filterRaces = (races: Array<Race>, filter: FilterStates) => {
   }
 };
 
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  color: theme.palette.primary.light,
+  textAlign: 'center',
+  fontWeight: 'bold',
+  marginBottom: theme.spacing(4),
+  letterSpacing: theme.spacing(1),
+  textTransform: 'uppercase',
+}));
+
 function AllRaces({ races, filter, updateFilter }: AllRacesProps): JSX.Element {
   return (
     <div>
-      <div>
-        <FilterButton
-          button={{
-            variant: 'contained',
-            startIcon: <FilterListIcon />,
-          }}
-          filter={filter}
-          updateFilter={updateFilter}
-        >
-          Filter
-        </FilterButton>
-      </div>
+      <StyledTypography variant="h3">Race betting</StyledTypography>
+      <FilterButton
+        button={{
+          variant: 'contained',
+          startIcon: <FilterListIcon />,
+        }}
+        filter={filter}
+        updateFilter={updateFilter}
+      />
       <div>
         {races.length > 0 &&
           filterRaces(races, filter).map((race) => <RaceElement {...race} key={race.id} />)}
