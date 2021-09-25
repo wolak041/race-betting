@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Alert, Button, TextField } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import NavigateBefore from '@mui/icons-material/NavigateBefore';
-import Send from '@mui/icons-material/Send';
 import { Race } from '../interfaces/race';
 import { Participant } from '../interfaces/participant';
 import { Places } from '../interfaces/places';
 import { Bet } from '../interfaces/bet';
 import { routes } from '../config/routes';
 import ParticipantsTable from '../components/ParticipantsTable';
+import RaceStatus from '../components/RaceStatus';
+import BetAmount from '../components/BetAmount';
 
 interface RaceProps {
   races: Array<Race>;
@@ -25,14 +26,38 @@ const getParticipants = (allParticipants: Array<Participant>, raceParticipants: 
 
 const getBet = (bets: Array<Bet>, raceId: number) => bets.find((bet) => bet.raceId === raceId);
 
-const isPlacesValid = (places: Places) =>
-  [...new Set(Object.values(places).filter(Number))].length === 3;
+const StyledRoot = styled('div')(({ theme }) => ({
+  '& > div': {
+    marginBottom: theme.spacing(3),
+  },
+}));
 
-const isBetAmountValid = (amount: string) => /^[1-9][0-9]*$/.test(amount.trim());
+const StyledHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  textAlign: 'right',
+
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    textAlign: 'left',
+  },
+}));
 
 const StyledLink = styled(Link)(({ theme }) => ({
   color: theme.palette.text.primary,
   textDecoration: 'none',
+  marginBottom: theme.spacing(3),
+  marginRight: theme.spacing(3),
+
+  '& > button': {
+    minWidth: '130px',
+  },
+}));
+
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(1),
 }));
 
 function SingleRace({ races, allParticipants, bets, updateBets }: RaceProps): JSX.Element {
@@ -65,7 +90,7 @@ function SingleRace({ races, allParticipants, bets, updateBets }: RaceProps): JS
     }
   }, [bets, urlParams.raceId]);
 
-  const handleButtonClick = () =>
+  const handleBetClick = () =>
     race?.id &&
     updateBets({
       raceId: race?.id,
@@ -74,44 +99,30 @@ function SingleRace({ races, allParticipants, bets, updateBets }: RaceProps): JS
     });
 
   return (
-    <div>
-      <div>
+    <StyledRoot>
+      <StyledHeader>
         <StyledLink to={routes.MAIN}>
           <Button variant="outlined" startIcon={<NavigateBefore />}>
             Go back
           </Button>
         </StyledLink>
-        <p>{race?.name ?? 'Race name'}</p>
-        <p>Status: {race?.active ? 'active' : 'inactive'}</p>
-      </div>
+        <div>
+          <StyledTypography variant="h4">{race?.name ?? 'Race name'}</StyledTypography>
+          <RaceStatus active={race?.active ?? false} />
+        </div>
+      </StyledHeader>
       <ParticipantsTable
         participants={raceParticipants}
         places={places}
         handleRadioChange={handleRadioChange}
       />
-      <div>
-        <TextField
-          label="Bet amount"
-          value={betAmount}
-          onChange={(e) => setBetAmount(e.target.value)}
-          inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-        />
-        <Button
-          variant="contained"
-          size="large"
-          endIcon={<Send />}
-          onClick={handleButtonClick}
-          disabled={!isPlacesValid(places) || !isBetAmountValid(betAmount)}
-        >
-          Bet
-        </Button>
-        {!isPlacesValid(places) ? (
-          <Alert severity="info">Choose winner, second and third place</Alert>
-        ) : (
-          !isBetAmountValid(betAmount) && <Alert severity="info">Set bet amount</Alert>
-        )}
-      </div>
-    </div>
+      <BetAmount
+        places={places}
+        betAmount={betAmount}
+        updateBetAmount={(amount) => setBetAmount(amount)}
+        handleBetClick={handleBetClick}
+      />
+    </StyledRoot>
   );
 }
 
