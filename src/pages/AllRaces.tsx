@@ -1,14 +1,11 @@
-import { useEffect } from 'react';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import RaceElement from '../components/RaceElement';
 import { Race } from '../interfaces/race';
-import { getRaces } from '../services/races';
 import FilterButton from '../components/FilterButton';
 import { filterStates, FilterStates } from '../config/filterStates';
 
 interface AllRacesProps {
   races: Array<Race>;
-  updateRaces: (races: Array<Race>) => void;
   filter: FilterStates;
   updateFilter: (filter: FilterStates) => void;
 }
@@ -24,16 +21,7 @@ const filterRaces = (races: Array<Race>, filter: FilterStates) => {
   }
 };
 
-function AllRaces({ races, updateRaces, filter, updateFilter }: AllRacesProps): JSX.Element {
-  useEffect(() => {
-    const loadRaces = async () => {
-      const races = await getRaces();
-      updateRaces(races);
-    };
-
-    loadRaces();
-  }, [updateRaces]);
-
+function AllRaces({ races, filter, updateFilter }: AllRacesProps): JSX.Element {
   return (
     <div>
       <div>
