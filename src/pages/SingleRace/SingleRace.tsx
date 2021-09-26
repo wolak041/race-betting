@@ -7,7 +7,7 @@ import { Race, Participant, Places, Bet } from '../../interfaces';
 import { routes } from '../../config/routes';
 import { ParticipantsTable, RaceStatus, BetAmount } from '../../components';
 
-interface RaceProps {
+export interface SingleRaceProps {
   races: Array<Race>;
   allParticipants: Array<Participant>;
   bets: Array<Bet>;
@@ -62,7 +62,7 @@ function SingleRace({
   bets,
   updateBets,
   isLoading,
-}: RaceProps): JSX.Element {
+}: SingleRaceProps): JSX.Element {
   const history = useHistory();
   const urlParams = useParams<{ raceId: string }>();
   const race = getRace(races, parseInt(urlParams.raceId, 10));

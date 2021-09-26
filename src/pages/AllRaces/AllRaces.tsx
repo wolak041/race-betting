@@ -5,13 +5,13 @@ import { RaceElement, FilterButton } from '../../components';
 import { Race } from '../../interfaces';
 import { filterStates, FilterStates } from '../../config/filterStates';
 
-interface AllRacesProps {
+export interface AllRacesProps {
   races: Array<Race>;
   filter: FilterStates;
   updateFilter: (filter: FilterStates) => void;
 }
 
-const filterRaces = (races: Array<Race>, filter: FilterStates) => {
+export const filterRaces = (races: Array<Race>, filter: FilterStates): Array<Race> => {
   switch (filter) {
     case filterStates.ACTIVE:
       return races.filter((race) => race.active);
