@@ -3,14 +3,9 @@ import { useHistory, useParams, Link } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import NavigateBefore from '@mui/icons-material/NavigateBefore';
-import { Race } from '../interfaces/race';
-import { Participant } from '../interfaces/participant';
-import { Places } from '../interfaces/places';
-import { Bet } from '../interfaces/bet';
-import { routes } from '../config/routes';
-import ParticipantsTable from '../components/ParticipantsTable';
-import RaceStatus from '../components/RaceStatus';
-import BetAmount from '../components/BetAmount';
+import { Race, Participant, Places, Bet } from '../../interfaces';
+import { routes } from '../../config/routes';
+import { ParticipantsTable, RaceStatus, BetAmount } from '../../components';
 
 interface RaceProps {
   races: Array<Race>;

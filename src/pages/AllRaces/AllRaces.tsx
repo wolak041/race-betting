@@ -1,10 +1,9 @@
 import { Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import RaceElement from '../components/RaceElement';
-import { Race } from '../interfaces/race';
-import FilterButton from '../components/FilterButton';
-import { filterStates, FilterStates } from '../config/filterStates';
+import { RaceElement, FilterButton } from '../../components';
+import { Race } from '../../interfaces';
+import { filterStates, FilterStates } from '../../config/filterStates';
 
 interface AllRacesProps {
   races: Array<Race>;
@@ -35,7 +34,7 @@ const StyledHeader = styled(Typography)(({ theme }) => ({
 const StyledInfo = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
   textAlign: 'center',
-  marginTop: theme.spacing(4)
+  marginTop: theme.spacing(4),
 }));
 
 function AllRaces({ races, filter, updateFilter }: AllRacesProps): JSX.Element {

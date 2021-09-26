@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import { IconButton, Paper, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import NavigateNext from '@mui/icons-material/NavigateNext';
-import RaceStatus from './RaceStatus';
-import { Race } from '../interfaces/race';
-import { routes } from '../config/routes';
+import { RaceStatus } from '../';
+import { Race } from '../../interfaces';
+import { routes } from '../../config/routes';
 
 const StyledLink = styled(Link)(({ theme }) => ({
   color: theme.palette.text.primary,

@@ -2,17 +2,13 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Main from './templates/Main';
-import AllRaces from './pages/AllRaces';
-import SingleRace from './pages/SingleRace';
+import { AllRaces, SingleRace } from './pages';
 import { getInitData } from './services/initData';
-import { Race } from './interfaces/race';
-import { Participant } from './interfaces/participant';
-import { Bet } from './interfaces/bet';
+import { Race, Participant, Bet } from './interfaces';
 import { routes } from './config/routes';
 import { FilterStates, filterStates } from './config/filterStates';
 import { getBetsFromLocalStorage, setBetsToLocalStorage } from './utils/localStorage';
-import ScrollToTop from './components/ScrollToTop';
-import Loading from './components/Loading';
+import { ScrollToTop, Loading } from './components';
 
 function App(): JSX.Element {
   const theme = createTheme({

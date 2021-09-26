@@ -1,4 +1,4 @@
-export interface Race {
+export default interface Race {
   id: number;
   name: string;
   active: boolean;

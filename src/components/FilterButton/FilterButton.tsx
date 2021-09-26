@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Menu, MenuItem } from '@mui/material';
 import { ButtonProps } from '@mui/material/Button';
 import { styled } from '@mui/system';
-import { FilterStates, filterStates } from '../config/filterStates';
+import { FilterStates, filterStates } from '../../config/filterStates';
 
 interface FilterButtonProps {
   button: ButtonProps;

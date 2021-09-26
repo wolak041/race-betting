@@ -8,8 +8,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { Participant } from '../interfaces/participant';
-import { Places } from '../interfaces/places';
+import { Participant, Places } from '../../interfaces';
 
 interface ParticipantsTableProps {
   participants: Array<Participant>;

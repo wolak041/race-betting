@@ -1,4 +1,4 @@
-import { Bet } from '../interfaces/bet';
+import { Bet } from '../interfaces';
 
 export function getBetsFromLocalStorage(): Array<Bet> {
   const bets = localStorage.getItem('bets');

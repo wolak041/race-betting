@@ -1,6 +1,6 @@
 import { Alert, Button, TextField, Typography } from '@mui/material';
 import Send from '@mui/icons-material/Send';
-import { Places } from '../interfaces/places';
+import { Places } from '../../interfaces';
 import { styled } from '@mui/system';
 
 interface BetAmountProps {

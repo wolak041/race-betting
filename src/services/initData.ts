@@ -1,5 +1,4 @@
-import { Race } from '../interfaces/race';
-import { Participant } from '../interfaces/participant';
+import { Race, Participant } from '../interfaces';
 
 const RACE_API = 'https://my-json-server.typicode.com/hdjfye/bet-api/races';
 const PARTICIPANT_API = 'https://my-json-server.typicode.com/hdjfye/bet-api/participants';
