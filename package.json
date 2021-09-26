@@ -9,7 +9,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -25,6 +25,9 @@
     "rules": {
       "react/react-in-jsx-scope": 0
     }
+  },
+  "jest": {
+    "resetMocks": false
   },
   "browserslist": {
     "production": [

@@ -39,6 +39,7 @@ function ParticipantsTable({
               <TableCell align="center">
                 <Radio
                   value={participant.id}
+                  name="winner"
                   onChange={() => handleRadioChange(participant.id, 'winnerId')}
                   checked={places.winnerId === participant.id}
                 />
@@ -46,6 +47,7 @@ function ParticipantsTable({
               <TableCell align="center">
                 <Radio
                   value={participant.id}
+                  name="second"
                   onChange={() => handleRadioChange(participant.id, 'secondId')}
                   checked={places.secondId === participant.id}
                 />
@@ -53,6 +55,7 @@ function ParticipantsTable({
               <TableCell align="center">
                 <Radio
                   value={participant.id}
+                  name="third"
                   onChange={() => handleRadioChange(participant.id, 'thirdId')}
                   checked={places.thirdId === participant.id}
                 />

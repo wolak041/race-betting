@@ -5,7 +5,7 @@ import { styled } from '@mui/system';
 import { FilterStates, filterStates } from '../../config/filterStates';
 
 interface FilterButtonProps {
-  button: ButtonProps;
+  button?: ButtonProps;
   filter: FilterStates;
   updateFilter: (states: FilterStates) => void;
 }

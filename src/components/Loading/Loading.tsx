@@ -5,7 +5,7 @@ interface LoadingProps {
   isLoading: boolean;
   isError: boolean;
   errorMessage?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const StyledAlert = styled(Alert)(({ theme }) => ({

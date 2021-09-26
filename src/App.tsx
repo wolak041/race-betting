@@ -10,37 +10,37 @@ import { FilterStates, filterStates } from './config/filterStates';
 import { getBetsFromLocalStorage, setBetsToLocalStorage } from './utils/localStorage';
 import { ScrollToTop, Loading } from './components';
 
-function App(): JSX.Element {
-  const theme = createTheme({
-    palette: {
-      mode: 'dark',
-      primary: {
-        main: '#a93cff',
-      },
-      secondary: {
-        main: '#081026',
-      },
-      text: {
-        primary: '#fff',
-        secondary: '#e4e4e4',
-      },
-      background: {
-        default: '#081026',
-        paper: '#081026',
-      },
+export const theme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#a93cff',
     },
-    typography: {
-      fontFamily: [
-        'Poppins',
-        '-apple-system',
-        'BlinkMacSystemFont',
-        'Segoe UI',
-        'Roboto',
-        'Open Sans',
-      ].join(','),
+    secondary: {
+      main: '#081026',
     },
-  });
+    text: {
+      primary: '#fff',
+      secondary: '#e4e4e4',
+    },
+    background: {
+      default: '#081026',
+      paper: '#081026',
+    },
+  },
+  typography: {
+    fontFamily: [
+      'Poppins',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      'Segoe UI',
+      'Roboto',
+      'Open Sans',
+    ].join(','),
+  },
+});
 
+function App(): JSX.Element {
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
   const [races, setRaces] = useState<Array<Race>>([]);

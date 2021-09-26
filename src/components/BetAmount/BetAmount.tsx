@@ -78,6 +78,7 @@ function BetAmount({
         <StyledBet>
           <TextField
             label="Bet amount"
+            id="bet-amount"
             value={betAmount}
             onChange={(e) => updateBetAmount(e.target.value)}
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
