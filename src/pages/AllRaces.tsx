@@ -23,8 +23,8 @@ const filterRaces = (races: Array<Race>, filter: FilterStates) => {
   }
 };
 
-const StyledTypography = styled(Typography)(({ theme }) => ({
-  color: theme.palette.primary.light,
+const StyledHeader = styled(Typography)(({ theme }) => ({
+  color: theme.palette.primary.main,
   textAlign: 'center',
   fontWeight: 'bold',
   marginBottom: theme.spacing(4),
@@ -32,10 +32,16 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   textTransform: 'uppercase',
 }));
 
+const StyledInfo = styled(Typography)(({ theme }) => ({
+  color: theme.palette.text.secondary,
+  textAlign: 'center',
+  marginTop: theme.spacing(4)
+}));
+
 function AllRaces({ races, filter, updateFilter }: AllRacesProps): JSX.Element {
   return (
     <div>
-      <StyledTypography variant="h3">Race betting</StyledTypography>
+      <StyledHeader variant="h3">Race betting</StyledHeader>
       <FilterButton
         button={{
           variant: 'contained',
@@ -45,8 +51,11 @@ function AllRaces({ races, filter, updateFilter }: AllRacesProps): JSX.Element {
         updateFilter={updateFilter}
       />
       <div>
-        {races.length > 0 &&
-          filterRaces(races, filter).map((race) => <RaceElement {...race} key={race.id} />)}
+        {races.length > 0 ? (
+          filterRaces(races, filter).map((race) => <RaceElement {...race} key={race.id} />)
+        ) : (
+          <StyledInfo>No races to bet</StyledInfo>
+        )}
       </div>
     </div>
   );
