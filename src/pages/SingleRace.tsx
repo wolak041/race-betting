@@ -76,6 +76,7 @@ function SingleRace({ races, allParticipants, bets, updateBets }: RaceProps): JS
     setPlaces((prev) => ({ ...prev, [type]: participantId }));
 
   const [betAmount, setBetAmount] = useState('0');
+  const [savedBetAmount, setSavedBetAmount] = useState<number | null>(null);
 
   useEffect(() => {
     const bet = getBet(bets, parseInt(urlParams.raceId, 10));
@@ -87,6 +88,7 @@ function SingleRace({ races, allParticipants, bets, updateBets }: RaceProps): JS
         thirdId: bet.thirdId,
       });
       setBetAmount(bet.betAmount.toString());
+      setSavedBetAmount(bet.betAmount);
     }
   }, [bets, urlParams.raceId]);
 
@@ -119,6 +121,7 @@ function SingleRace({ races, allParticipants, bets, updateBets }: RaceProps): JS
       <BetAmount
         places={places}
         betAmount={betAmount}
+        savedBetAmount={savedBetAmount}
         updateBetAmount={(amount) => setBetAmount(amount)}
         handleBetClick={handleBetClick}
       />
