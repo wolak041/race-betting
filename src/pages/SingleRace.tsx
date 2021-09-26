@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import NavigateBefore from '@mui/icons-material/NavigateBefore';
@@ -17,6 +17,7 @@ interface RaceProps {
   allParticipants: Array<Participant>;
   bets: Array<Bet>;
   updateBets: (bet: Bet) => void;
+  isLoading: boolean;
 }
 
 const getRace = (races: Array<Race>, raceId: number) => races.find((race) => race.id === raceId);
@@ -60,12 +61,23 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1),
 }));
 
-function SingleRace({ races, allParticipants, bets, updateBets }: RaceProps): JSX.Element {
+function SingleRace({
+  races,
+  allParticipants,
+  bets,
+  updateBets,
+  isLoading,
+}: RaceProps): JSX.Element {
+  const history = useHistory();
   const urlParams = useParams<{ raceId: string }>();
   const race = getRace(races, parseInt(urlParams.raceId, 10));
   const raceParticipants = race?.participants
     ? getParticipants(allParticipants, race?.participants)
     : [];
+
+  useEffect(() => {
+    !isLoading && !race && history.push(routes.MAIN);
+  }, [history, isLoading, race]);
 
   const [places, setPlaces] = useState<Places>({
     winnerId: null,

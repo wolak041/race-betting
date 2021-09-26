@@ -4,8 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Main from './templates/Main';
 import AllRaces from './pages/AllRaces';
 import SingleRace from './pages/SingleRace';
-import { getRaces } from './services/races';
-import { getParticipants } from './services/participants';
+import { getInitData } from './services/initData';
 import { Race } from './interfaces/race';
 import { Participant } from './interfaces/participant';
 import { Bet } from './interfaces/bet';
@@ -13,6 +12,7 @@ import { routes } from './config/routes';
 import { FilterStates, filterStates } from './config/filterStates';
 import { getBetsFromLocalStorage, setBetsToLocalStorage } from './utils/localStorage';
 import ScrollToTop from './components/ScrollToTop';
+import Loading from './components/Loading';
 
 function App(): JSX.Element {
   const theme = createTheme({
@@ -45,24 +45,25 @@ function App(): JSX.Element {
     },
   });
 
+  const [isLoading, setLoading] = useState(true);
+  const [isError, setError] = useState(false);
   const [races, setRaces] = useState<Array<Race>>([]);
-  useEffect(() => {
-    const loadRaces = async () => {
-      const races = await getRaces();
-      setRaces(races);
-    };
-
-    loadRaces();
-  }, []);
-
   const [participants, setParticipants] = useState<Array<Participant>>([]);
   useEffect(() => {
-    const loadParticipants = async () => {
-      const participants = await getParticipants();
-      setParticipants(participants);
+    const loadData = async () => {
+      try {
+        const data = await getInitData();
+        setRaces(data.races);
+        setParticipants(data.participants);
+
+        setLoading(false);
+      } catch (error) {
+        setError(true);
+        setLoading(false);
+      }
     };
 
-    loadParticipants();
+    loadData();
   }, []);
 
   const [bets, setBets] = useState<Array<Bet>>([]);
@@ -95,19 +96,22 @@ function App(): JSX.Element {
       <Router>
         <ScrollToTop />
         <Main>
-          <Switch>
-            <Route path={`${routes.RACE}/:raceId`}>
-              <SingleRace
-                races={races}
-                allParticipants={participants}
-                bets={bets}
-                updateBets={updateBets}
-              />
-            </Route>
-            <Route path={routes.MAIN}>
-              <AllRaces races={races} filter={filter} updateFilter={updateFilter} />
-            </Route>
-          </Switch>
+          <Loading isLoading={isLoading} isError={isError} errorMessage="Couldn't load races">
+            <Switch>
+              <Route path={`${routes.RACE}/:raceId`}>
+                <SingleRace
+                  races={races}
+                  allParticipants={participants}
+                  bets={bets}
+                  updateBets={updateBets}
+                  isLoading={isLoading}
+                />
+              </Route>
+              <Route path={routes.MAIN}>
+                <AllRaces races={races} filter={filter} updateFilter={updateFilter} />
+              </Route>
+            </Switch>
+          </Loading>
         </Main>
       </Router>
     </ThemeProvider>
